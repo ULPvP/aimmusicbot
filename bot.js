@@ -1,4 +1,4 @@
-const prefix = "Aim!";
+const prefix = "Aim!"
 const token = process.env.TOKEN
 
 const ytdl = require('ytdl-core');
