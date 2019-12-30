@@ -8,6 +8,7 @@ const GOOGLE_API_KEY = "AIzaSyDC1L_V32QN44YqSqMl0PfA7Q9NjUuf2UM";
 const youtube = new Youtube(GOOGLE_API_KEY);
 const Discord = require("discord.js");
 const client = new Discord.Client();
+const token = process.env.TOKEN
 
 
 const queue = new Map();
@@ -187,6 +188,6 @@ Please provide a value to select one of the search results ranging from 1-10.
     serverQueue.textChannel.send(`🎶 Start playing: **${song.title}**`);
 })
 
-            client.login("NjUzMjAwOTk3MjYyMjk1MDQw.XgoTng.iQzkyYYQufO8CDFLtadzFCv0O34");
+            client.login(token);
 
 
