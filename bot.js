@@ -35,15 +35,30 @@ client.on('message', async message => {
     const serverQueue = queue.get(message.guild.id);
 
 
-    if (message.content.startsWith(`${prefix}play`)) {
+    if (message.content.startsWith(`${prefix}play`))
+	    ///////////////////////////////////////////////////////
+    {
+	execute(message, serverQueue);
+	return;
+} else if (message.content.startsWith(`${prefix}skip`)) {
+	skip(message, serverQueue);
+	return;
+} else if (message.content.startsWith(`${prefix}stop`)) {
+	stop(message, serverQueue);
+	return;
+} else {
+	message.channel.send('請你打一個正確的指令')
+}
+}); ///////////////////////////////////////////////////////////////////////////////////
+    {
         const voiceChannel = message.member.voiceChannel;
         if (!voiceChannel) return message.channel.send('I\'m sorry but you need to be in a voice channel to play music!');
         const permissions = voiceChannel.permissionsFor(message.client.user);
         if (!permissions.has('CONNECT')) {
-            return message.channel.send('I cannot connect to your voice channel, make sure I have the proper permissions!');
+            return message.channel.send('我不能進去你的語音頻道,請確認我有足夠權限去加入!');
         }
         if (!permissions.has('SPEAK')) {
-            return message.channel.send('I cannot speak in this voice channel, make sure I have the proper permissions!');
+            return message.channel.send('我不能在你的語音頻道播放音樂/講話,請確認我有足夠權限去講話');
         }
 
         if (url.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)) {
@@ -52,7 +67,7 @@ client.on('message', async message => {
             for (const video of Object.values(videos)) {const video2 = await youtube.getVideoByID(video.id); // eslint-disable-line no-await-in-loop
                 await handleVideo(video2, message, voiceChannel, true); // eslint-disable-line no-await-in-loop
             }
-            return message.channel.send(`✅ Playlist: **${playlist.title}** has been added to the queue!`);
+            return message.channel.send(`✅ Playlist: **${playlist.title}** 已被加到播放清單中!`);
         } else {
             try {
                 var video = await youtube.getVideo(url);
@@ -63,7 +78,7 @@ client.on('message', async message => {
                     message.channel.send(`
 __**Song selection:**__
 ${videos.map(video2 => `**${++index} -** ${video2.title}`).join('\n')}
-Please provide a value to select one of the search results ranging from 1-10.
+請輸入數值1-10
 					`);
                     // eslint-disable-next-line max-depth
                     try {
@@ -80,7 +95,7 @@ Please provide a value to select one of the search results ranging from 1-10.
                     var video = await youtube.getVideoByID(videos[videoIndex - 1].id);
                 } catch (err) {
                     console.error(err);
-                    return message.channel.send('🆘 I could not obtain any search results.');
+                    return message.channel.send('🆘 我能讀取任何與1-10有關的數值');
                 }
             }
 
@@ -185,7 +200,7 @@ Please provide a value to select one of the search results ranging from 1-10.
                 })
         ;
         dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
-    serverQueue.textChannel.send(`🎶 Start playing: **${song.title}**`);
+    serverQueue.textChannel.send(`🎶 開始播放: **${song.title}**`);
 })
 
             client.login(token);
