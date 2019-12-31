@@ -50,8 +50,8 @@ client.on('message', async message => {
 	message.channel.send('請你打一個正確的指令')
 }
 }); ///////////////////////////////////////////////////////////////////////////////////
-    {
-        const voiceChannel = message.member.voiceChannel;
+    async run(message, { query }) {
+        var voiceChannel = message.member.voiceChannel;
         if (!voiceChannel) return message.channel.send('I\'m sorry but you need to be in a voice channel to play music!');
         const permissions = voiceChannel.permissionsFor(message.client.user);
         if (!permissions.has('CONNECT')) {
