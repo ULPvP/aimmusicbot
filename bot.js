@@ -4,7 +4,7 @@ const prefix = "Aim!";
 
 const Youtube = require('simple-youtube-api');
 const ytdl = require('ytdl-core');
-const GOOGLE_API_KEY = "AIzaSyDC1L_V32QN44YqSqMl0PfA7Q9NjUuf2UM";
+const GOOGLE_API_KEY = process.env.GTOKEN
 const youtube = new Youtube(GOOGLE_API_KEY);
 const Discord = require("discord.js");
 const client = new Discord.Client();
