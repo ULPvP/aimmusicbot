@@ -62,8 +62,8 @@ client.on('message', async message => {
         }
 
         if (url.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)) {
-            const playlist = await youtube.getPlaylist(url);
-            const videos = await playlist.getVideos();
+            const playlist = wait youtube.getPlaylist(url);
+            const videos = wait playlist.getVideos();
             for (const video of Object.values(videos)) {const video2 = await youtube.getVideoByID(video.id); // eslint-disable-line no-await-in-loop
                 await handleVideo(video2, message, voiceChannel, true); // eslint-disable-line no-await-in-loop
             }
