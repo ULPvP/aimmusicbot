@@ -61,9 +61,13 @@ client.on('message', async message => {
             return message.channel.send('我不能在你的語音頻道播放音樂/講話,請確認我有足夠權限去講話');
         }
 
-        if (url.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)) {
-            const playlist = wait youtube.getPlaylist(url);
-            const videos = wait playlist.getVideos();
+        if (
+      url.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/))
+      )
+    ) {
+      try {
+        const playlist = await youtube.getPlaylist(url); // get playlist data 
+        const videosObj = await playlist.getVideos();}
             for (const video of Object.values(videos)) {const video2 = await youtube.getVideoByID(video.id); // eslint-disable-line no-await-in-loop
                 await handleVideo(video2, message, voiceChannel, true); // eslint-disable-line no-await-in-loop
             }
